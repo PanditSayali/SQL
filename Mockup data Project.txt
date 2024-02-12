@@ -1,0 +1,77 @@
+First, use SELECT * from both tables and use your knowledge of queries and aggregate functions to get to know the data:
+
+--> 	SELECT * FROM PROGRESS;
+	SELECT * FROM USERS;
+
+What are the Top 25 schools (.edu domains)?
+
+-->	SELECT * FROM USERS WHERE EMAIL_DOMAIN LIKE '%.EDU' LIMIT 25;
+
+How many .edu learners are located in New York?
+
+--> 	select city , count(user_id) as no_of_learners from users where city = 'New York'; 
+
+The mobile_app column contains either mobile-user or NULL. How many of these Codecademy learners are using the mobile app?
+
+-->	select mobile_app, count(mobile_app)from users;
+
+Query for the sign up counts for each hour.
+
+-->	select sign_up_at, strftime('%H',sign_up_at) from users group by 1;
+
+
+Do different schools (.edu domains) prefer different courses?
+
+-->     for javaScript  :
+	 SELECT email_domain, COUNT(*) AS javascript
+         FROM users 
+         JOIN progress 
+	 ON users.user_id = progress.user_id
+	 WHERE progress.learn_javascript = 'started' OR progress.learn_javascript = 'completed'
+	 GROUP BY 1
+	 ORDER BY 1;
+	
+	for sql:
+	 SELECT email_domain, COUNT(*) AS sql
+         FROM users 
+         JOIN progress 
+	 ON users.user_id = progress.user_id
+	 WHERE progress.learn_sql = 'started' OR progress.learn_sql = 'completed'
+	 GROUP BY 1
+	 ORDER BY 1;
+	
+	for html:
+	 SELECT email_domain, COUNT(*) AS html
+         FROM users 
+         JOIN progress 
+	 ON users.user_id = progress.user_id
+	 WHERE progress.learn_html = 'started' OR progress.learn_html = 'completed'
+	 GROUP BY 1
+	 ORDER BY 1;
+
+	for cpp:
+	 SELECT email_domain, COUNT(*) AS cpp
+         FROM users 
+         JOIN progress 
+	 ON users.user_id = progress.user_id
+	 WHERE progress.learn_cpp = 'started' OR progress.learn_cpp = 'completed'
+	 GROUP BY 1
+	 ORDER BY 1;
+
+	for java :
+	 SELECT email_domain, COUNT(*) AS java
+         FROM users 
+         JOIN progress 
+	 ON users.user_id = progress.user_id
+	 WHERE progress.learn_java = 'started' OR progress.learn_java = 'completed'
+	 GROUP BY 1
+	 ORDER BY 1;
+	
+	
+
+What courses are the New Yorkers students taking?
+
+-->select * from users left join progress on users.user_id = progress.user_id WHERE city = 'New York';
+
+What courses are the Chicago students taking?
+-->	select * from users left join progress on users.user_id = progress.user_id WHERE city = 'Chicago';
